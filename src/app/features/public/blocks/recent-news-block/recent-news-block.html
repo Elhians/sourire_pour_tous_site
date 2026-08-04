@@ -1,0 +1,66 @@
+<section id="news" class="bg-gray-50 py-16 sm:py-24 scroll-mt-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="md:flex md:items-center md:justify-between mb-12">
+      <div>
+        <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl font-heading">
+          Dernières actualités
+        </h2>
+        <p class="mt-3 max-w-2xl text-xl text-gray-500">
+          Suivez la vie de l'association et l'avancée de nos projets au quotidien.
+        </p>
+      </div>
+      <div class="mt-4 md:mt-0">
+        <a routerLink="/actualites" class="inline-flex items-center text-primary font-bold hover:text-red-700 transition-colors group">
+          Toutes nos actualités
+          <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </a>
+      </div>
+    </div>
+
+    @if (isLoading()) {
+      <div class="flex justify-center my-12">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      </div>
+    } @else if (news().length > 0) {
+      <div class="grid gap-8 lg:grid-cols-3">
+        @for (article of news(); track article.id) {
+          <div class="flex flex-col rounded-2xl shadow-lg overflow-hidden bg-white border border-gray-100 group">
+            <div class="flex-shrink-0 relative h-48 overflow-hidden">
+              @if (article.cover_image) {
+                <img class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" [src]="article.cover_image" [alt]="article.title">
+              } @else {
+                <div class="h-full w-full bg-red-50 flex items-center justify-center transition-transform duration-700 group-hover:scale-105">
+                  <span class="text-primary font-heading font-bold text-xl opacity-30">Sourire Pour Tous</span>
+                </div>
+              }
+            </div>
+            <div class="flex-1 p-6 flex flex-col justify-between">
+              <div class="flex-1">
+                <p class="text-sm font-medium text-primary">
+                  {{ article.created_at | date:'dd MMM yyyy':'':'fr' }}
+                </p>
+                <a [routerLink]="['/actualites', article.slug]" class="block mt-2">
+                  <h3 class="text-xl font-bold text-gray-900 font-heading hover:text-primary transition-colors">
+                    {{ article.title }}
+                  </h3>
+                  <p class="mt-3 text-base text-gray-500 line-clamp-3">
+                    {{ article.excerpt || article.content }}
+                  </p>
+                </a>
+              </div>
+              <div class="mt-6">
+                <a [routerLink]="['/actualites', article.slug]" class="text-sm font-bold text-primary hover:text-red-700 transition-colors">
+                  Lire la suite &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="text-center py-12">
+        <p class="text-gray-500">Aucune actualité pour le moment.</p>
+      </div>
+    }
+  </div>
+</section>

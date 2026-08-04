@@ -1,0 +1,165 @@
+<div class="px-4 sm:px-6 lg:px-8 py-8">
+  <div class="sm:flex sm:items-center mb-8">
+    <div class="sm:flex-auto">
+      <h1 class="text-2xl font-semibold text-gray-900 font-heading">Paramètres du site</h1>
+      <p class="mt-2 text-sm text-gray-700">Gérez les coordonnées, les statistiques et les réseaux sociaux de l'association.</p>
+    </div>
+  </div>
+
+  @if (isLoading()) {
+    <div class="flex justify-center my-12">
+      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+    </div>
+  } @else {
+    <form [formGroup]="settingsForm" (ngSubmit)="saveSettings()" class="space-y-8 bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2 p-6 sm:p-8">
+      
+      <!-- Section: Informations Générales -->
+      <div>
+        <h2 class="text-base font-semibold leading-7 text-gray-900">Informations Générales</h2>
+        <hr class="mt-2 mb-6 border-gray-100">
+        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+          <div class="sm:col-span-2">
+            <label for="volunteers_count" class="block text-sm font-medium leading-6 text-gray-900">Bénévoles engagés</label>
+            <div class="mt-2">
+              <input type="number" formControlName="volunteers_count" id="volunteers_count" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-primary sm:text-sm sm:leading-6">
+            </div>
+          </div>
+          
+          <div class="sm:col-span-2">
+            <label for="beneficiaries_count" class="block text-sm font-medium leading-6 text-gray-900">Bénéficiaires aidés</label>
+            <div class="mt-2">
+              <input type="number" formControlName="beneficiaries_count" id="beneficiaries_count" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-primary sm:text-sm sm:leading-6">
+            </div>
+          </div>
+          
+          <div class="sm:col-span-2">
+            <label for="projects_count" class="block text-sm font-medium leading-6 text-gray-900">Projets menés</label>
+            <div class="mt-2">
+              <input type="number" formControlName="projects_count" id="projects_count" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-primary sm:text-sm sm:leading-6">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Coordonnées -->
+      <div>
+        <h2 class="text-base font-semibold leading-7 text-gray-900">Coordonnées</h2>
+        <hr class="mt-2 mb-6 border-gray-100">
+        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+          <div class="sm:col-span-3">
+            <label for="contact_email" class="block text-sm font-medium leading-6 text-gray-900">Email de contact</label>
+            <div class="mt-2">
+              <input type="email" formControlName="contact_email" id="contact_email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <label for="contact_phone" class="block text-sm font-medium leading-6 text-gray-900">Numéro de téléphone</label>
+            <div class="mt-2">
+              <input type="text" formControlName="contact_phone" id="contact_phone" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+          <div class="sm:col-span-6">
+            <label for="address" class="block text-sm font-medium leading-6 text-gray-900">Adresse postale</label>
+            <div class="mt-2">
+              <input type="text" formControlName="address" id="address" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Informations pour les dons -->
+      <div>
+        <h2 class="text-base font-semibold leading-7 text-gray-900">Informations pour les dons</h2>
+        <p class="text-xs text-gray-500 mb-2">Ces informations apparaîtront sur la page /don</p>
+        <hr class="mt-2 mb-6 border-gray-100">
+        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+          <div class="sm:col-span-3">
+            <label for="donation_mobile_money" class="block text-sm font-medium leading-6 text-gray-900">Numéros Orange Money / Wave</label>
+            <div class="mt-2">
+              <input type="text" formControlName="donation_mobile_money" id="donation_mobile_money" placeholder="+221 ..." class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <label for="donation_paypal_email" class="block text-sm font-medium leading-6 text-gray-900">Email PayPal</label>
+            <div class="mt-2">
+              <input type="email" formControlName="donation_paypal_email" id="donation_paypal_email" placeholder="email@paypal.com" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <label for="donation_paypal_name" class="block text-sm font-medium leading-6 text-gray-900">Nom du compte PayPal</label>
+            <div class="mt-2">
+              <input type="text" formControlName="donation_paypal_name" id="donation_paypal_name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <label for="donation_contact_info" class="block text-sm font-medium leading-6 text-gray-900">Contacts Infos Supplémentaires (Don)</label>
+            <div class="mt-2">
+              <input type="text" formControlName="donation_contact_info" id="donation_contact_info" placeholder="+221 ... / +221 ..." class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Réseaux Sociaux -->
+      <div>
+        <h2 class="text-base font-semibold leading-7 text-gray-900">Réseaux Sociaux (Liens URL)</h2>
+        <p class="text-xs text-gray-500 mb-2">Laissez vide si vous ne possédez pas le réseau correspondant.</p>
+        <hr class="mt-2 mb-6 border-gray-100">
+        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+          <div class="sm:col-span-3">
+            <label for="facebook_url" class="block text-sm font-medium leading-6 text-gray-900">Facebook URL</label>
+            <div class="mt-2">
+              <input type="text" formControlName="facebook_url" id="facebook_url" placeholder="https://facebook.com/..." class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <label for="instagram_url" class="block text-sm font-medium leading-6 text-gray-900">Instagram URL</label>
+            <div class="mt-2">
+              <input type="text" formControlName="instagram_url" id="instagram_url" placeholder="https://instagram.com/..." class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <label for="snapchat_url" class="block text-sm font-medium leading-6 text-gray-900">Snapchat URL</label>
+            <div class="mt-2">
+              <input type="text" formControlName="snapchat_url" id="snapchat_url" placeholder="https://snapchat.com/add/..." class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <label for="tiktok_url" class="block text-sm font-medium leading-6 text-gray-900">TikTok URL</label>
+            <div class="mt-2">
+              <input type="text" formControlName="tiktok_url" id="tiktok_url" placeholder="https://tiktok.com/@..." class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6">
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <label for="whatsapp_url" class="block text-sm font-medium leading-6 text-gray-900">Lien Groupe WhatsApp</label>
+            <div class="mt-2">
+              <input type="text" formControlName="whatsapp_url" id="whatsapp_url" placeholder="https://chat.whatsapp.com/..." class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-x-6 border-t border-gray-900/10 pt-6">
+        @if (saveSuccess()) {
+          <span class="text-sm font-medium text-green-600 bg-green-50 px-3 py-1 rounded-full">Paramètres enregistrés !</span>
+        }
+        <button type="submit" [disabled]="isSaving() || settingsForm.invalid" class="rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50">
+          @if (isSaving()) {
+            Enregistrement...
+          } @else {
+            Enregistrer les modifications
+          }
+        </button>
+      </div>
+    </form>
+  }
+</div>

@@ -1,0 +1,52 @@
+@if (campaign()) {
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-red-200 flex flex-col md:flex-row">
+    
+    <!-- Image côté gauche -->
+    <div class="md:w-5/12 h-64 md:h-auto relative">
+      <img [src]="campaign()!.cover_image || 'https://images.unsplash.com/photo-1593113565694-c6c71be397d4?q=80&w=800&auto=format&fit=crop'" 
+           alt="Image de campagne" 
+           class="absolute inset-0 w-full h-full object-cover">
+    </div>
+    
+    <!-- Contenu côté droit -->
+    <div class="md:w-7/12 p-8 md:p-12 flex flex-col justify-center">
+      
+      <div class="mb-4">
+        <span class="inline-block bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+          PRIORITÉ
+        </span>
+      </div>
+      
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 font-heading mb-4">
+        {{ campaign()!.title }}
+      </h2>
+      
+      <p class="text-gray-600 text-lg mb-8">
+        {{ campaign()!.excerpt || (campaign()!.content | slice:0:150) + '...' }}
+      </p>
+      
+      <!-- Barre de progression -->
+      <div class="mb-8">
+        <div class="w-full bg-gray-100 rounded-full h-3 mb-2">
+          <div class="bg-green-700 h-3 rounded-full" [style.width]="progress() + '%'"></div>
+        </div>
+        <div class="text-sm text-gray-600 font-medium">
+          <span class="font-bold text-gray-900">{{ formatAmount(campaign()!.collected_amount || 0) }}</span> collectés sur {{ formatAmount(campaign()!.goal_amount || 0) }} — {{ progress() }}%
+        </div>
+      </div>
+      
+      <!-- Boutons d'action -->
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a routerLink="/don" class="bg-primary text-white text-center px-6 py-3 rounded-xl font-bold hover:bg-red-700 transition-colors shadow-sm">
+          Soutenir cette action
+        </a>
+        <a [routerLink]="['/article', campaign()!.slug]" class="bg-white border border-gray-300 text-gray-700 text-center px-6 py-3 rounded-xl font-medium hover:bg-gray-50 transition-colors shadow-sm">
+          En savoir plus
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</div>
+}

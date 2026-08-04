@@ -1,0 +1,28 @@
+<section #statsSection id="stats" class="bg-[#FDFDFD] border-y border-gray-100 py-16 sm:py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <dl class="grid grid-cols-1 gap-y-12 sm:grid-cols-3 sm:gap-x-8 text-center divide-y sm:divide-y-0 divide-gray-100 sm:divide-transparent">
+      
+      <div class="flex flex-col items-center justify-center pt-8 sm:pt-0">
+        <dd class="text-[3.5rem] md:text-[4rem] font-extrabold text-[#C62828] font-heading mb-3 tracking-tight leading-none">
+          {{ formatNumber(animatedBeneficiaries) }}+
+        </dd>
+        <dt class="text-base md:text-lg font-medium text-gray-500">Bénéficiaires aidés</dt>
+      </div>
+
+      <div class="flex flex-col items-center justify-center pt-8 sm:pt-0">
+        <dd class="text-[3.5rem] md:text-[4rem] font-extrabold text-[#C62828] font-heading mb-3 tracking-tight leading-none">
+          {{ formatNumber(animatedVolunteers) }}
+        </dd>
+        <dt class="text-base md:text-lg font-medium text-gray-500">Bénévoles engagés</dt>
+      </div>
+
+      <div class="flex flex-col items-center justify-center pt-8 sm:pt-0">
+        <dd class="text-[3.5rem] md:text-[4rem] font-extrabold text-[#C62828] font-heading mb-3 tracking-tight leading-none">
+          {{ formatNumber(animatedProjects) }}
+        </dd>
+        <dt class="text-base md:text-lg font-medium text-gray-500">Projets menés</dt>
+      </div>
+
+    </dl>
+  </div>
+</section>

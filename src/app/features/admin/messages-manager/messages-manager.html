@@ -1,0 +1,116 @@
+<div class="space-y-6">
+  <div class="flex justify-between items-center">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900">Messages Reçus</h1>
+      <p class="mt-1 text-sm text-gray-500">Gérez les messages envoyés depuis le formulaire de contact.</p>
+    </div>
+    <button (click)="loadMessages()" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+      <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+      Actualiser
+    </button>
+  </div>
+
+  @if (isLoading()) {
+    <div class="flex justify-center items-center py-12">
+      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+    </div>
+  } @else {
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+      @if (messages().length === 0) {
+        <div class="text-center py-12">
+          <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
+          <h3 class="mt-2 text-sm font-medium text-gray-900">Aucun message</h3>
+          <p class="mt-1 text-sm text-gray-500">Vous n'avez reçu aucun message pour le moment.</p>
+        </div>
+      } @else {
+        <ul role="list" class="divide-y divide-gray-200">
+          @for (msg of messages(); track msg.id) {
+            <li>
+              <a (click)="openMessage(msg)" class="block hover:bg-gray-50 cursor-pointer transition-colors" [class.bg-red-50]="!msg.is_read">
+                <div class="px-4 py-4 sm:px-6">
+                  <div class="flex items-center justify-between">
+                    <p class="text-sm font-medium truncate" [class.text-primary]="!msg.is_read" [class.text-gray-900]="msg.is_read">
+                      {{ msg.name }}
+                    </p>
+                    <div class="ml-2 flex-shrink-0 flex">
+                      <p class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full" [class.bg-red-100]="!msg.is_read" [class.text-red-800]="!msg.is_read" [class.bg-gray-100]="msg.is_read" [class.text-gray-800]="msg.is_read">
+                        {{ msg.is_read ? 'Lu' : 'Non lu' }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="mt-2 sm:flex sm:justify-between">
+                    <div class="sm:flex">
+                      <p class="flex items-center text-sm text-gray-500">
+                        <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        {{ msg.email }}
+                      </p>
+                      <p class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
+                        <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+                        Sujet : {{ msg.subject }}
+                      </p>
+                    </div>
+                    <div class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
+                      <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                      <p>
+                        Reçu le <time [attr.datetime]="msg.created_at">{{ msg.created_at | date:'dd/MM/yyyy HH:mm' }}</time>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  }
+</div>
+
+<!-- Modal Affichage du Message -->
+@if (selectedMessage()) {
+  <div class="fixed z-50 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" (click)="closeMessage()"></div>
+      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+      
+      <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full sm:p-6">
+        <div>
+          <div class="mt-3 text-center sm:mt-5 sm:text-left">
+            <h3 class="text-xl leading-6 font-medium text-gray-900" id="modal-title">
+              Message de {{ selectedMessage()?.name }}
+            </h3>
+            
+            <div class="mt-4 border-t border-b border-gray-200 py-4 mb-4">
+              <dl class="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
+                <div class="sm:col-span-1">
+                  <dt class="text-sm font-medium text-gray-500">Email</dt>
+                  <dd class="mt-1 text-sm text-gray-900"><a href="mailto:{{ selectedMessage()?.email }}" class="text-primary hover:underline">{{ selectedMessage()?.email }}</a></dd>
+                </div>
+                <div class="sm:col-span-1">
+                  <dt class="text-sm font-medium text-gray-500">Date de réception</dt>
+                  <dd class="mt-1 text-sm text-gray-900">{{ selectedMessage()?.created_at | date:'dd/MM/yyyy HH:mm' }}</dd>
+                </div>
+                <div class="sm:col-span-2">
+                  <dt class="text-sm font-medium text-gray-500">Sujet</dt>
+                  <dd class="mt-1 text-sm text-gray-900 font-semibold">{{ selectedMessage()?.subject }}</dd>
+                </div>
+              </dl>
+            </div>
+            
+            <div class="mt-2">
+              <p class="text-sm text-gray-700 whitespace-pre-wrap bg-gray-50 p-4 rounded-lg border border-gray-100">{{ selectedMessage()?.message }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-5 sm:mt-6 sm:flex sm:flex-row-reverse">
+          <a href="mailto:{{ selectedMessage()?.email }}?subject=RE: {{ selectedMessage()?.subject }}" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-white hover:bg-red-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
+            Répondre
+          </a>
+          <button type="button" (click)="closeMessage()" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:w-auto sm:text-sm">
+            Fermer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

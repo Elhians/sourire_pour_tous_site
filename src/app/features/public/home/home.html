@@ -1,0 +1,39 @@
+@if (isLoading()) {
+  <div class="min-h-[70vh] flex items-center justify-center bg-gray-50">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+  </div>
+} @else {
+  <div class="flex flex-col w-full">
+    @for (block of blocks(); track block.type) {
+      @switch (block.type) {
+        @case ('hero') {
+          <app-hero-block [config]="block.config"></app-hero-block>
+        }
+        @case ('about') {
+          <app-about-block [config]="block.config"></app-about-block>
+        }
+        @case ('priority-campaign') {
+          <app-priority-campaign-block></app-priority-campaign-block>
+        }
+        @case ('stats') {
+          <app-stats-block></app-stats-block>
+        }
+        @case ('recent-campaigns') {
+          <app-recent-campaigns-block></app-recent-campaigns-block>
+        }
+        @case ('recent-news') {
+          <app-recent-news-block></app-recent-news-block>
+        }
+        @case ('actions') {
+          <app-actions-block [config]="block.config"></app-actions-block>
+        }
+        @case ('testimonials') {
+          <app-testimonials-block [config]="block.config"></app-testimonials-block>
+        }
+        @case ('contact') {
+          <app-contact-block [config]="block.config"></app-contact-block>
+        }
+      }
+    }
+  </div>
+}

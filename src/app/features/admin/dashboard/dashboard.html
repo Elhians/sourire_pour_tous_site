@@ -1,0 +1,58 @@
+<div class="space-y-6">
+  <!-- Page Header -->
+  <div class="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
+    <h1 class="text-2xl font-semibold text-gray-900 font-heading">Tableau de Bord</h1>
+    <div class="flex">
+      <button routerLink="/admin/articles" [queryParams]="{new: true}" class="w-full sm:w-auto bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors shadow-sm">
+        Nouvel Article
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+      <div class="flex items-center">
+        <div class="p-3 rounded-full bg-red-50 text-primary">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H14"></path></svg>
+        </div>
+        <div class="ml-4">
+          <p class="text-sm font-medium text-gray-500 uppercase tracking-wide">Articles</p>
+          <p class="text-2xl font-semibold text-gray-900">{{ articlesCount() }}</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+      <div class="flex items-center">
+        <div class="p-3 rounded-full bg-green-50 text-secondary">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        </div>
+        <div class="ml-4">
+          <p class="text-sm font-medium text-gray-500 uppercase tracking-wide">Témoignages</p>
+          <p class="text-2xl font-semibold text-gray-900">{{ testimonialsCount() }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+      <div class="flex items-center">
+        <div class="p-3 rounded-full bg-yellow-50 text-accent">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+        </div>
+        <div class="ml-4">
+          <p class="text-sm font-medium text-gray-500 uppercase tracking-wide">Bénévoles</p>
+          <p class="text-2xl font-semibold text-gray-900">{{ volunteersCount() }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Activity -->
+  <section class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+    <h2 class="text-lg font-medium text-gray-900 mb-4">Activité Récente</h2>
+    <div class="text-center py-8 text-gray-500">
+      <p>Aucune activité récente pour le moment.</p>
+    </div>
+  </section>
+</div>

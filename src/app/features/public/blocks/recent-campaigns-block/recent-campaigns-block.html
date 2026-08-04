@@ -1,0 +1,68 @@
+@if (campaigns().length > 0) {
+<section class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-12">
+      <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl font-heading mb-2">
+        Nos actions récentes
+      </h2>
+      <p class="text-xl text-gray-500">
+        Santé, éducation, Ramadan et réponses d'urgence.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      @for (campaign of campaigns(); track campaign.id) {
+        <a [routerLink]="['/article', campaign.slug]" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col h-full group">
+          <!-- Image -->
+          <div class="h-56 relative w-full overflow-hidden">
+            <img [src]="campaign.cover_image || 'https://images.unsplash.com/photo-1593113565694-c6c71be397d4?q=80&w=800&auto=format&fit=crop'" 
+                 [alt]="campaign.title" 
+                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+          </div>
+          
+          <!-- Contenu -->
+          <div class="p-6 flex flex-col flex-grow">
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-2 mb-4">
+              @for (tag of campaign.parsedTags; track tag) {
+                <span class="inline-block text-xs font-semibold px-3 py-1 rounded-full" 
+                      [ngClass]="tag.toLowerCase() === 'urgence' ? 'bg-primary text-white' : 'bg-white border border-gray-200 text-gray-700'">
+                  {{ tag }}
+                </span>
+              }
+            </div>
+            
+            <!-- Titre & Extrait -->
+            <h3 class="text-xl font-bold mb-2 leading-tight transition-colors group-hover:text-primary" 
+                [ngClass]="(campaign.title.toLowerCase().includes('cœur') || campaign.title.toLowerCase().includes('coeur')) ? 'text-primary' : 'text-gray-900'">
+              {{ campaign.title }}
+            </h3>
+            
+            <p class="text-gray-600 text-sm mb-6 flex-grow">
+              {{ campaign.excerpt || (campaign.content | slice:0:120) + '...' }}
+            </p>
+            
+            <!-- Barre de progression -->
+            <div class="mt-auto pt-4 border-t border-gray-50">
+              <div class="w-full bg-gray-100 rounded-full h-2.5 mb-2">
+                <div class="bg-green-700 h-2.5 rounded-full" [style.width]="campaign.progress + '%'"></div>
+              </div>
+              <div class="text-xs text-gray-600 font-medium">
+                <span class="font-bold text-gray-900">{{ formatAmount(campaign.collected_amount || 0) }}</span> collectés sur {{ formatAmount(campaign.goal_amount || 0) }} — {{ campaign.progress }}%
+              </div>
+            </div>
+          </div>
+        </a>
+      }
+    </div>
+
+    <!-- Lien vers toutes les actions -->
+    <div class="mt-10 text-left">
+      <a routerLink="/actions" class="inline-flex items-center text-primary font-bold hover:text-red-700 transition-colors group">
+        Voir toutes nos actions 
+        <svg class="ml-1 w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+      </a>
+    </div>
+  </div>
+</section>
+}

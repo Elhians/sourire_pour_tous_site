@@ -1,0 +1,79 @@
+<section class="bg-primary py-16 lg:py-24 overflow-hidden relative">
+  <!-- Background decoration -->
+  <div class="absolute inset-0 opacity-10">
+    <svg class="h-full w-full" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1463 360">
+      <path class="text-white" fill="currentColor" d="M-82.673 72l1761.849 472.086-134.327 501.315-1761.85-472.086z"></path>
+      <path class="text-white" fill="currentColor" d="M-217.088 544.086L1544.761 72l134.327 501.316-1761.849 472.086z"></path>
+    </svg>
+  </div>
+  
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Conteneur fixe en hauteur pour le fondu -->
+    <div class="relative min-h-[300px] flex items-center justify-center">
+      
+      <!-- Arrows (only show if multiple) -->
+      @if (testimonials().length > 1) {
+        <button (click)="onManualPrev()" class="absolute left-0 md:-left-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors z-20 hidden sm:block p-2" aria-label="Témoignage précédent">
+          <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        <button (click)="onManualNext()" class="absolute right-0 md:-right-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors z-20 hidden sm:block p-2" aria-label="Témoignage suivant">
+          <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+      }
+
+      <div class="w-full relative h-full flex items-center justify-center">
+        @for (item of testimonials(); track item.id; let i = $index) {
+          <!-- Slide -->
+          <div class="absolute w-full transition-all duration-700 ease-in-out"
+               [class.opacity-100]="currentIndex() === i"
+               [class.opacity-0]="currentIndex() !== i"
+               [class.translate-x-0]="currentIndex() === i"
+               [class.z-10]="currentIndex() === i"
+               [class.pointer-events-none]="currentIndex() !== i"
+               [style.position]="currentIndex() === i ? 'relative' : 'absolute'">
+            
+            <blockquote class="mt-4 px-4 sm:px-12">
+              <div class="max-w-3xl mx-auto text-center text-xl md:text-2xl leading-9 font-medium text-white font-heading">
+                <p>&ldquo;{{ item.content }}&rdquo;</p>
+              </div>
+              <footer class="mt-8">
+                <div class="md:flex md:items-center md:justify-center">
+                  <div class="md:flex-shrink-0">
+                    <div class="mx-auto h-12 w-12 rounded-full bg-white flex items-center justify-center text-primary font-bold text-xl shadow-sm">
+                      {{ getInitials(item.author_name) }}
+                    </div>
+                  </div>
+                  <div class="mt-3 text-center md:mt-0 md:ml-4 md:flex md:items-center">
+                    <div class="text-base font-medium text-white">{{ item.author_name }}</div>
+                    @if (item.author_role) {
+                      <svg class="hidden md:block mx-1 h-5 w-5 text-red-300" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M11 0h3L9 20H6l5-20z"></path>
+                      </svg>
+                      <div class="text-base font-medium text-red-100">{{ item.author_role }}</div>
+                    }
+                  </div>
+                </div>
+              </footer>
+            </blockquote>
+          </div>
+        }
+      </div>
+      
+    </div>
+    
+    <!-- Dots Navigation -->
+    @if (testimonials().length > 1) {
+      <div class="flex justify-center mt-6 space-x-3 relative z-10">
+        @for (item of testimonials(); track item.id; let i = $index) {
+          <button (click)="goTo(i)" 
+                  class="w-2.5 h-2.5 rounded-full transition-all duration-300"
+                  [class.bg-white]="currentIndex() === i"
+                  [style.background-color]="currentIndex() !== i ? 'rgba(255,255,255,0.3)' : ''"
+                  [class.scale-125]="currentIndex() === i"
+                  [attr.aria-label]="'Aller au témoignage ' + (i + 1)">
+          </button>
+        }
+      </div>
+    }
+  </div>
+</section>

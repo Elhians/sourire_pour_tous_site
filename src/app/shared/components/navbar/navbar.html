@@ -1,0 +1,85 @@
+<nav [ngClass]="isScrolled() ? 'bg-white/80 backdrop-blur-lg shadow-sm border-gray-200' : 'bg-white border-transparent'" class="fixed w-full top-0 z-50 border-b transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-20">
+      <div class="flex">
+        <div class="flex-shrink-0 flex items-center">
+          <a routerLink="/" (click)="closeMobileMenu()" class="flex items-center space-x-3">
+            <div class="w-16 h-16 flex items-center justify-center transform hover:scale-105 transition-transform">
+              <img src="assets/images/logo.png" alt="Sourire Pour Tous Logo" class="h-full w-full object-contain">
+            </div>
+            <span class="font-heading font-bold text-2xl text-gray-900 hidden lg:block tracking-tight">Sourire Pour Tous</span>
+          </a>
+        </div>
+        <div class="hidden md:ml-12 md:flex md:space-x-8">
+          <a routerLink="/" routerLinkActive="border-primary text-gray-900" [routerLinkActiveOptions]="{exact: true}" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors">
+            Accueil
+          </a>
+          <a routerLink="/a-propos" routerLinkActive="border-primary text-gray-900" [routerLinkActiveOptions]="{exact: false}" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors cursor-pointer">
+            À Propos
+          </a>
+          <a routerLink="/actions" routerLinkActive="border-primary text-gray-900" [routerLinkActiveOptions]="{exact: false}" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors cursor-pointer">
+            Nos Actions
+          </a>
+          <a routerLink="/actualites" routerLinkActive="border-primary text-gray-900" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors cursor-pointer">
+            Actualités
+          </a>
+          <a routerLink="/contact" routerLinkActive="border-primary text-gray-900" [routerLinkActiveOptions]="{exact: false}" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors cursor-pointer">
+            Contact
+          </a>
+        </div>
+      </div>
+      <div class="hidden md:ml-6 md:flex md:items-center space-x-6">
+        <a routerLink="/admin/login" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Admin</a>
+        <a routerLink="/don" class="bg-primary text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-red-700 hover:scale-105 transition-all duration-300 shadow-lg shadow-red-500/30 uppercase tracking-wide cursor-pointer inline-flex items-center">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+          Faire un don
+        </a>
+      </div>
+      
+      <!-- Mobile menu button -->
+      <div class="flex items-center md:hidden">
+        <button type="button" (click)="toggleMobileMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
+          <span class="sr-only">Ouvrir le menu</span>
+          <svg *ngIf="!isMobileMenuOpen()" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg *ngIf="isMobileMenuOpen()" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div *ngIf="isMobileMenuOpen()" class="md:hidden border-t border-gray-100 bg-white">
+    <div class="pt-2 pb-3 space-y-1">
+      <a routerLink="/" (click)="closeMobileMenu()" routerLinkActive="bg-red-50 border-primary text-primary" [routerLinkActiveOptions]="{exact: true}" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+        Accueil
+      </a>
+      <a routerLink="/a-propos" (click)="closeMobileMenu()" routerLinkActive="bg-red-50 border-primary text-primary" [routerLinkActiveOptions]="{exact: false}" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium cursor-pointer">
+        À Propos
+      </a>
+      <a routerLink="/actions" (click)="closeMobileMenu()" routerLinkActive="bg-red-50 border-primary text-primary" [routerLinkActiveOptions]="{exact: false}" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium cursor-pointer">
+        Nos Actions
+      </a>
+      <a routerLink="/actualites" (click)="closeMobileMenu()" routerLinkActive="bg-red-50 border-primary text-primary" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium cursor-pointer">
+        Actualités
+      </a>
+      <a routerLink="/contact" (click)="closeMobileMenu()" routerLinkActive="bg-red-50 border-primary text-primary" [routerLinkActiveOptions]="{exact: false}" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium cursor-pointer">
+        Contact
+      </a>
+    </div>
+    <div class="pt-4 pb-4 border-t border-gray-100">
+      <div class="flex items-center px-4 space-x-4">
+        <a routerLink="/don" (click)="closeMobileMenu()" class="flex-1 text-center bg-primary text-white px-4 py-3 rounded-full text-base font-bold shadow-lg shadow-red-500/30 uppercase tracking-wide cursor-pointer inline-flex items-center justify-center hover:bg-red-700 transition-colors">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+          Faire un don
+        </a>
+        <a routerLink="/admin/login" (click)="closeMobileMenu()" class="text-gray-500 hover:text-gray-900 font-medium p-2">
+          Admin
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

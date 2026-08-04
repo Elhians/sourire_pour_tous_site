@@ -1,0 +1,173 @@
+<div class="bg-gray-50 min-h-screen">
+  <!-- Hero section -->
+  <div class="relative bg-primary py-24">
+    <div class="absolute inset-0">
+      <img class="w-full h-full object-cover opacity-20" src="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Contactez-nous">
+      <div class="absolute inset-0 bg-primary mix-blend-multiply"></div>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl font-heading">
+        Contactez-Nous
+      </h1>
+      <p class="mt-6 max-w-2xl mx-auto text-xl text-red-100">
+        Une question ? Envie de devenir bénévole ou partenaire ? N'hésitez pas à nous envoyer un message, nous vous répondrons dans les plus brefs délais.
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+      
+      <!-- Contact Info -->
+      <div class="lg:col-span-1 space-y-12">
+        <div>
+          <h2 class="text-2xl font-extrabold text-gray-900 font-heading">Nos Coordonnées</h2>
+          <p class="mt-4 text-lg text-gray-500">
+            Vous pouvez également nous joindre directement via ces informations.
+          </p>
+        </div>
+        
+        <div class="space-y-8">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <div class="flex items-center justify-center h-12 w-12 rounded-xl bg-red-50 text-primary">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+              </div>
+            </div>
+            <div class="ml-6">
+              <h3 class="text-lg font-medium text-gray-900 font-heading">Siège de l'Association</h3>
+              <p class="mt-2 text-base text-gray-500">
+                123 Rue de la Solidarité<br>75001 Paris, France
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <div class="flex items-center justify-center h-12 w-12 rounded-xl bg-red-50 text-primary">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+              </div>
+            </div>
+            <div class="ml-6">
+              <h3 class="text-lg font-medium text-gray-900 font-heading">Téléphone</h3>
+              <p class="mt-2 text-base text-gray-500">
+                +33 (0)1 23 45 67 89<br>
+                <span class="text-sm">Du lundi au vendredi, de 9h à 18h</span>
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <div class="flex items-center justify-center h-12 w-12 rounded-xl bg-red-50 text-primary">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+              </div>
+            </div>
+            <div class="ml-6">
+              <h3 class="text-lg font-medium text-gray-900 font-heading">Email</h3>
+              <p class="mt-2 text-base text-gray-500">
+                contact&#64;sourirepourtous.org<br>
+                partenariat&#64;sourirepourtous.org
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Contact Form -->
+      <div class="lg:col-span-2 mt-12 lg:mt-0">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 p-8 sm:p-12">
+          
+          @if (submitSuccess) {
+            <div class="bg-green-50 border-l-4 border-green-400 p-6 rounded-lg mb-8">
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <svg class="h-6 w-6 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <div class="ml-3">
+                  <p class="text-sm font-medium text-green-800">
+                    Votre message a bien été envoyé ! Nous vous répondrons dans les plus brefs délais.
+                  </p>
+                </div>
+              </div>
+            </div>
+          }
+          
+          @if (submitError) {
+            <div class="bg-red-50 border-l-4 border-red-400 p-6 rounded-lg mb-8">
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <svg class="h-6 w-6 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <div class="ml-3">
+                  <p class="text-sm font-medium text-red-800">
+                    Une erreur est survenue lors de l'envoi de votre message. Veuillez réessayer plus tard.
+                  </p>
+                </div>
+              </div>
+            </div>
+          }
+
+          <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="space-y-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+              <div>
+                <label for="first-name" class="block text-sm font-medium text-gray-700">Prénom</label>
+                <div class="mt-1">
+                  <input type="text" id="first-name" formControlName="firstName" autocomplete="given-name" class="py-3 px-4 block w-full shadow-sm focus:ring-primary focus:border-primary border-gray-300 rounded-lg bg-gray-50 outline-none transition-colors" [class.border-red-300]="contactForm.get('firstName')?.invalid && contactForm.get('firstName')?.touched">
+                </div>
+              </div>
+              <div>
+                <label for="last-name" class="block text-sm font-medium text-gray-700">Nom</label>
+                <div class="mt-1">
+                  <input type="text" id="last-name" formControlName="lastName" autocomplete="family-name" class="py-3 px-4 block w-full shadow-sm focus:ring-primary focus:border-primary border-gray-300 rounded-lg bg-gray-50 outline-none transition-colors" [class.border-red-300]="contactForm.get('lastName')?.invalid && contactForm.get('lastName')?.touched">
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700">Adresse email</label>
+              <div class="mt-1">
+                <input id="email" type="email" formControlName="email" autocomplete="email" class="py-3 px-4 block w-full shadow-sm focus:ring-primary focus:border-primary border-gray-300 rounded-lg bg-gray-50 outline-none transition-colors" [class.border-red-300]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
+              </div>
+            </div>
+            
+            <div>
+              <label for="subject" class="block text-sm font-medium text-gray-700">Sujet</label>
+              <div class="mt-1">
+                <select id="subject" formControlName="subject" class="py-3 px-4 block w-full shadow-sm focus:ring-primary focus:border-primary border-gray-300 rounded-lg bg-gray-50 outline-none transition-colors">
+                  <option value="Je souhaite faire un don">Je souhaite faire un don</option>
+                  <option value="Je souhaite devenir bénévole">Je souhaite devenir bénévole</option>
+                  <option value="Proposition de partenariat">Proposition de partenariat</option>
+                  <option value="Autre demande">Autre demande</option>
+                </select>
+              </div>
+            </div>
+            
+            <div>
+              <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+              <div class="mt-1">
+                <textarea id="message" formControlName="message" rows="5" class="py-3 px-4 block w-full shadow-sm focus:ring-primary focus:border-primary border-gray-300 rounded-lg bg-gray-50 outline-none transition-colors" [class.border-red-300]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"></textarea>
+              </div>
+            </div>
+            
+            <div>
+              <button type="submit" [disabled]="contactForm.invalid || isSubmitting" class="w-full inline-flex items-center justify-center px-6 py-4 border border-transparent rounded-lg shadow-lg text-base font-bold text-white bg-primary hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors uppercase tracking-wide">
+                @if (isSubmitting) {
+                  <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                  Envoi en cours...
+                } @else {
+                  Envoyer le message
+                }
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
