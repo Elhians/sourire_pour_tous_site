@@ -21,4 +21,16 @@ export class RecentNewsBlock implements OnInit {
     this.news.set(data);
     this.isLoading.set(false);
   }
+
+  formatAmount(amount: any): string {
+    const num = Number(amount) || 0;
+    return num.toLocaleString('fr-FR') + ' €';
+  }
+
+  getProgress(article: Article): number {
+    if (!article.goal_amount) return 0;
+    const collected = Number(article.collected_amount) || 0;
+    const goal = Number(article.goal_amount) || 1;
+    return Math.min((collected / goal) * 100, 100);
+  }
 }

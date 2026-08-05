@@ -4,6 +4,7 @@ import { AdminLayout } from './core/layouts/admin-layout/admin-layout';
 import { authGuard } from './core/guards/auth.guard';
 import { Home } from './features/public/home/home';
 import { NewsList } from './features/public/news/news-list/news-list';
+import { NewsDetail } from './features/public/news/news-detail/news-detail';
 import { About } from './features/public/about/about/about';
 import { ActionsPage } from './features/public/actions/actions-page/actions-page';
 import { ContactPage } from './features/public/contact/contact-page/contact-page';
@@ -29,6 +30,10 @@ export const routes: Routes = [
       {
         path: 'actualites',
         component: NewsList
+      },
+      {
+        path: 'actualites/:slug',
+        component: NewsDetail
       },
       {
         path: 'a-propos',

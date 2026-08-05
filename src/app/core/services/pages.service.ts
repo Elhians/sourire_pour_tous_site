@@ -25,9 +25,9 @@ export class PagesService {
       .from('pages_blocks')
       .select('*')
       .eq('page_name', pageName)
-      .single();
+      .maybeSingle();
 
-    if (error && error.code !== 'PGRST116') {
+    if (error) {
       console.error('Error fetching page blocks', error);
       return [];
     }

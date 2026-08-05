@@ -43,7 +43,17 @@ export class UpdatePassword {
     this.isLoading.set(false);
 
     if (error) {
-      this.errorMessage.set('Erreur lors de la mise à jour du mot de passe. Le lien est peut-être expiré.');
+      let friendlyMessage = 'Erreur lors de la mise à jour du mot de passe. Le lien est peut-être expiré.';
+      
+      if (error.message.includes('Password should contain at least one character of each')) {
+        friendlyMessage = 'Le mot de passe doit contenir au moins 6 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial.';
+      } else if (error.message.includes('Auth session missing')) {
+        friendlyMessage = 'Votre session est invalide. Veuillez ouvrir le lien dans le même navigateur ou refaire une demande.';
+      } else {
+        friendlyMessage = `Erreur : ${error.message}`;
+      }
+      
+      this.errorMessage.set(friendlyMessage);
     } else {
       this.successMessage.set('Votre mot de passe a été mis à jour avec succès !');
       setTimeout(() => {

@@ -63,6 +63,20 @@ export class ArticlesService {
     return data as Article;
   }
 
+  async getArticleBySlug(slug: string): Promise<Article | null> {
+    const { data, error } = await this.supabase.client
+      .from('articles')
+      .select('*')
+      .eq('slug', slug)
+      .single();
+
+    if (error) {
+      console.error('Error fetching article by slug', error);
+      return null;
+    }
+    return data as Article;
+  }
+
   async getPriorityArticle(): Promise<Article | null> {
     const { data, error } = await this.supabase.client
       .from('articles')

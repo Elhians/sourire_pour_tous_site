@@ -77,43 +77,26 @@
         </p>
       </div>
       <div class="mt-16 grid gap-12 lg:grid-cols-3 lg:gap-8">
-        
-        <div class="space-y-4 text-center">
-          <div class="mx-auto h-40 w-40 rounded-full bg-white border-4 border-gray-100 shadow-md overflow-hidden flex items-center justify-center transition-transform hover:scale-105 duration-300">
-            <svg class="h-20 w-20 text-gray-300" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-          </div>
-          <div class="space-y-2">
-            <div class="text-lg leading-6 font-medium space-y-1">
-              <h3 class="text-xl text-gray-900 font-heading font-bold">Abdellah M.</h3>
-              <p class="text-primary font-medium">Président Fondateur</p>
+        @for (member of members(); track member.id) {
+          <div class="space-y-4 text-center">
+            <div class="mx-auto h-40 w-40 rounded-full bg-white border-4 border-gray-100 shadow-md overflow-hidden flex items-center justify-center transition-transform hover:scale-105 duration-300">
+              @if (member.image_url) {
+                <img [src]="member.image_url" [alt]="'Photo de ' + member.name" class="w-full h-full object-cover">
+              } @else {
+                <svg class="h-20 w-20 text-gray-300" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+              }
+            </div>
+            <div class="space-y-2">
+              <div class="text-lg leading-6 font-medium space-y-1">
+                <h3 class="text-xl text-gray-900 font-heading font-bold">{{ member.name }}</h3>
+                <p class="text-primary font-medium">{{ member.role }}</p>
+                @if (member.quote) {
+                  <p class="text-sm text-gray-500 italic mt-2">"{{ member.quote }}"</p>
+                }
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="space-y-4 text-center">
-          <div class="mx-auto h-40 w-40 rounded-full bg-white border-4 border-gray-100 shadow-md overflow-hidden flex items-center justify-center transition-transform hover:scale-105 duration-300">
-            <svg class="h-20 w-20 text-gray-300" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-          </div>
-          <div class="space-y-2">
-            <div class="text-lg leading-6 font-medium space-y-1">
-              <h3 class="text-xl text-gray-900 font-heading font-bold">Sarah K.</h3>
-              <p class="text-secondary font-medium">Responsable Projets Sociaux</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="space-y-4 text-center">
-          <div class="mx-auto h-40 w-40 rounded-full bg-white border-4 border-gray-100 shadow-md overflow-hidden flex items-center justify-center transition-transform hover:scale-105 duration-300">
-            <svg class="h-20 w-20 text-gray-300" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-          </div>
-          <div class="space-y-2">
-            <div class="text-lg leading-6 font-medium space-y-1">
-              <h3 class="text-xl text-gray-900 font-heading font-bold">Karim B.</h3>
-              <p class="text-accent font-medium">Coordinateur Logistique</p>
-            </div>
-          </div>
-        </div>
-
+        }
       </div>
     </div>
   </div>
@@ -127,7 +110,7 @@
       <p class="mt-4 text-lg leading-6 text-red-100">
         Que ce soit par un don, en devenant bénévole, ou simplement en partageant nos actions, chaque geste compte.
       </p>
-      <a href="#" class="mt-8 w-full inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-full text-primary bg-white hover:bg-gray-50 sm:w-auto shadow-lg uppercase tracking-wide transition-colors">
+      <a [href]="settings()?.whatsapp_url || '#'" target="_blank" rel="noopener noreferrer" class="mt-8 w-full inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-full text-primary bg-white hover:bg-gray-50 sm:w-auto shadow-lg uppercase tracking-wide transition-colors">
         Devenir Bénévole
       </a>
     </div>

@@ -141,7 +141,7 @@
             </a>
         </div>
         <div class="ml-3 inline-flex rounded-md shadow">
-          <a routerLink="/contact" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-full text-primary bg-red-50 hover:bg-red-100 md:py-4 md:text-lg transition-colors uppercase tracking-wide">
+          <a [href]="settings()?.whatsapp_url || '#'" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-full text-primary bg-red-50 hover:bg-red-100 md:py-4 md:text-lg transition-colors uppercase tracking-wide">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
             Devenir bénévole
           </a>

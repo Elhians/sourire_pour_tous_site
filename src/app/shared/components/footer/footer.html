@@ -7,11 +7,15 @@
           <div class="w-16 h-16 flex items-center justify-center">
             <img src="assets/images/logo.png" alt="Sourire Pour Tous Logo" class="h-full w-full object-contain">
           </div>
-          <span class="font-heading font-bold text-2xl text-white tracking-tight">Sourire Pour Tous</span>
+          <div class="flex flex-col items-start leading-none ml-2">
+            <span class="font-heading font-black text-3xl text-white tracking-tight">Sourire</span>
+            <span class="font-sans font-bold text-xs text-red-500 uppercase tracking-[0.15em] mt-0.5">POUR TOUS</span>
+          </div>
         </div>
         <p class="text-gray-400 text-sm leading-relaxed max-w-xs">
           Agir concrètement sur le terrain pour lutter contre la précarité et redonner le sourire à ceux qui en ont le plus besoin.
         </p>
+        <div class="flex items-center space-x-4 mt-6">
           @if (settings()?.facebook_url) {
             <a [href]="settings()?.facebook_url" target="_blank" class="text-gray-400 hover:text-white transition-colors">
               <span class="sr-only">Facebook</span>
@@ -52,6 +56,7 @@
               </svg>
             </a>
           }
+        </div>
       </div>
 
       <!-- Liens -->
@@ -81,7 +86,7 @@
                 <a routerLink="/don" class="text-base text-gray-400 hover:text-white transition-colors cursor-pointer">Faire un don</a>
               </li>
               <li>
-                <a routerLink="/contact" class="text-base text-gray-400 hover:text-white transition-colors">Devenir Bénévole</a>
+                <a [href]="settings()?.whatsapp_url || '#'" target="_blank" rel="noopener noreferrer" class="text-base text-gray-400 hover:text-white transition-colors">Devenir Bénévole</a>
               </li>
             </ul>
           </div>

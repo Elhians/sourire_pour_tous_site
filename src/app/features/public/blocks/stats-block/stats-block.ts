@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SettingsService, SiteSettings } from '../../../../core/services/settings.service';
 
@@ -18,7 +18,10 @@ export class StatsBlock implements AfterViewInit, OnInit {
   hasAnimated = false;
   settings: SiteSettings | null = null;
 
-  constructor(private settingsService: SettingsService) {}
+  constructor(
+    private settingsService: SettingsService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   async ngOnInit() {
     this.settings = await this.settingsService.getSettings();
@@ -67,6 +70,7 @@ export class StatsBlock implements AfterViewInit, OnInit {
       this.animatedBeneficiaries = Math.floor(targetBeneficiaries * easeProgress);
       this.animatedVolunteers = Math.floor(targetVolunteers * easeProgress);
       this.animatedProjects = Math.floor(targetProjects * easeProgress);
+      this.cdr.detectChanges();
       
       if (progress < 1) {
         requestAnimationFrame(updateNumbers);
@@ -74,6 +78,7 @@ export class StatsBlock implements AfterViewInit, OnInit {
         this.animatedBeneficiaries = targetBeneficiaries;
         this.animatedVolunteers = targetVolunteers;
         this.animatedProjects = targetProjects;
+        this.cdr.detectChanges();
       }
     };
     
