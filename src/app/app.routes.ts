@@ -2,21 +2,7 @@ import { Routes } from '@angular/router';
 import { PublicLayout } from './core/layouts/public-layout/public-layout';
 import { AdminLayout } from './core/layouts/admin-layout/admin-layout';
 import { authGuard } from './core/guards/auth.guard';
-import { Home } from './features/public/home/home';
-import { NewsList } from './features/public/news/news-list/news-list';
-import { NewsDetail } from './features/public/news/news-detail/news-detail';
-import { About } from './features/public/about/about/about';
-import { ActionsPage } from './features/public/actions/actions-page/actions-page';
-import { ContactPage } from './features/public/contact/contact-page/contact-page';
-import { Dashboard } from './features/admin/dashboard/dashboard';
-import { Login } from './features/admin/login/login';
-import { UpdatePassword } from './features/admin/update-password/update-password';
-import { PagesManager } from './features/admin/pages-manager/pages-manager';
-import { ArticlesManager } from './features/admin/articles-manager/articles-manager';
-import { TestimonialsManager } from './features/admin/testimonials-manager/testimonials-manager';
-import { MessagesManager } from './features/admin/messages-manager/messages-manager';
-import { SettingsManager } from './features/admin/settings-manager/settings-manager';
-import { TeamManager } from './features/admin/team-manager/team-manager';
+
 
 export const routes: Routes = [
   {
@@ -25,32 +11,32 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: Home,
+        loadComponent: () => import('./features/public/home/home').then(m => m.Home),
         title: 'Accueil | Sourire Pour Tous'
       },
       {
         path: 'actualites',
-        component: NewsList,
+        loadComponent: () => import('./features/public/news/news-list/news-list').then(m => m.NewsList),
         title: 'Actualités | Sourire Pour Tous'
       },
       {
         path: 'actualites/:slug',
-        component: NewsDetail,
+        loadComponent: () => import('./features/public/news/news-detail/news-detail').then(m => m.NewsDetail),
         title: 'Actualités | Sourire Pour Tous'
       },
       {
         path: 'a-propos',
-        component: About,
+        loadComponent: () => import('./features/public/about/about/about').then(m => m.About),
         title: 'À Propos | Sourire Pour Tous'
       },
       {
         path: 'actions',
-        component: ActionsPage,
+        loadComponent: () => import('./features/public/actions/actions-page/actions-page').then(m => m.ActionsPage),
         title: 'Nos Actions | Sourire Pour Tous'
       },
       {
         path: 'contact',
-        component: ContactPage,
+        loadComponent: () => import('./features/public/contact/contact-page/contact-page').then(m => m.ContactPage),
         title: 'Contact | Sourire Pour Tous'
       },
       {
@@ -62,11 +48,11 @@ export const routes: Routes = [
   },
   {
     path: 'admin/login',
-    component: Login
+    loadComponent: () => import('./features/admin/login/login').then(m => m.Login)
   },
   {
     path: 'admin/update-password',
-    component: UpdatePassword
+    loadComponent: () => import('./features/admin/update-password/update-password').then(m => m.UpdatePassword)
   },
   {
     path: 'admin',
@@ -75,36 +61,37 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: Dashboard
+        loadComponent: () => import('./features/admin/dashboard/dashboard').then(m => m.Dashboard)
       },
       {
         path: 'pages',
-        component: PagesManager
+        loadComponent: () => import('./features/admin/pages-manager/pages-manager').then(m => m.PagesManager)
       },
       {
         path: 'articles',
-        component: ArticlesManager
+        loadComponent: () => import('./features/admin/articles-manager/articles-manager').then(m => m.ArticlesManager)
       },
       {
         path: 'testimonials',
-        component: TestimonialsManager
+        loadComponent: () => import('./features/admin/testimonials-manager/testimonials-manager').then(m => m.TestimonialsManager)
       },
       {
         path: 'settings',
-        component: SettingsManager
+        loadComponent: () => import('./features/admin/settings-manager/settings-manager').then(m => m.SettingsManager)
       },
       {
         path: 'messages',
-        component: MessagesManager
+        loadComponent: () => import('./features/admin/messages-manager/messages-manager').then(m => m.MessagesManager)
       },
       {
         path: 'team',
-        component: TeamManager
+        loadComponent: () => import('./features/admin/team-manager/team-manager').then(m => m.TeamManager)
       }
     ]
   },
   {
     path: '**',
-    redirectTo: ''
+    loadComponent: () => import('./features/public/not-found/not-found.component').then(m => m.NotFoundComponent),
+    title: 'Page introuvable | Sourire Pour Tous'
   }
 ];

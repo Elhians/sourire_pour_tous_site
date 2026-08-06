@@ -182,7 +182,7 @@ export class ArticlesService {
 
   async uploadImage(file: File): Promise<string | null> {
     const fileExt = file.name.split('.').pop();
-    const fileName = `${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`;
+    const fileName = `${crypto.randomUUID()}_${Date.now()}.${fileExt}`;
     const filePath = `articles/${fileName}`;
 
     const { error: uploadError } = await this.supabase.client.storage

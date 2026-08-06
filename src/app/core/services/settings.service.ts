@@ -27,7 +27,13 @@ export interface SiteSettings {
 export class SettingsService {
   constructor(private supabase: SupabaseService) {}
 
-  async getSettings(): Promise<SiteSettings> {
+  private cachedSettings: SiteSettings | null = null;
+
+  async getSettings(forceRefresh = false): Promise<SiteSettings> {
+    if (this.cachedSettings && !forceRefresh) {
+      return this.cachedSettings;
+    }
+
     const { data, error } = await this.supabase.client
       .from('site_settings')
       .select('*')
@@ -52,10 +58,12 @@ export class SettingsService {
     };
 
     if (error || !data) {
-      return defaultSettings;
+      this.cachedSettings = defaultSettings;
+    } else {
+      this.cachedSettings = { ...defaultSettings, ...(data as SiteSettings) };
     }
     
-    return { ...defaultSettings, ...(data as SiteSettings) };
+    return this.cachedSettings;
   }
 
   async updateSettings(settings: Partial<SiteSettings>): Promise<boolean> {
@@ -64,19 +72,26 @@ export class SettingsService {
       .select('id')
       .maybeSingle();
 
+    let success = false;
     if (existingData) {
       const { error } = await this.supabase.client
         .from('site_settings')
         .update(settings)
         .eq('id', existingData.id);
       if (error) console.error("Error updating settings", error);
-      return !error;
+      success = !error;
     } else {
       const { error } = await this.supabase.client
         .from('site_settings')
         .insert([settings]);
       if (error) console.error("Error inserting settings", error);
-      return !error;
+      success = !error;
     }
+
+    if (success) {
+      // Invalidate cache so next fetch gets updated data
+      this.cachedSettings = null;
+    }
+    return success;
   }
 }

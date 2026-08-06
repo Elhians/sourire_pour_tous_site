@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MessagesService } from '../../../../core/services/messages.service';
+import { SettingsService, SiteSettings } from '../../../../core/services/settings.service';
 
 @Component({
   selector: 'app-contact-page',
@@ -15,13 +16,18 @@ export class ContactPage implements OnInit {
   isSubmitting = false;
   submitSuccess = false;
   submitError = false;
+  
+  settings = signal<SiteSettings | null>(null);
 
   constructor(
     private fb: FormBuilder,
-    private messagesService: MessagesService
+    private messagesService: MessagesService,
+    private settingsService: SettingsService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.settings.set(await this.settingsService.getSettings());
+    
     this.contactForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
