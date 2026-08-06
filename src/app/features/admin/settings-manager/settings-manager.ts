@@ -1,7 +1,8 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SettingsService, SiteSettings } from '../../../core/services/settings.service';
+import { NotificationService } from '../../../core/services/notification.service';
 
 @Component({
   selector: 'app-settings-manager',
@@ -15,6 +16,8 @@ export class SettingsManager implements OnInit {
   isLoading = signal<boolean>(true);
   isSaving = signal<boolean>(false);
   saveSuccess = signal<boolean>(false);
+
+  notificationService = inject(NotificationService);
 
   constructor(
     private fb: FormBuilder,
@@ -45,7 +48,7 @@ export class SettingsManager implements OnInit {
 
   async loadSettings() {
     this.isLoading.set(true);
-    const settings = await this.settingsService.getSettings();
+    const settings = await this.settingsService.getSettings(true); // force refresh on admin
     this.settingsForm.patchValue(settings);
     this.isLoading.set(false);
   }
@@ -64,9 +67,10 @@ export class SettingsManager implements OnInit {
     this.isSaving.set(false);
     if (success) {
       this.saveSuccess.set(true);
+      this.notificationService.showToast('success', 'Paramètres mis à jour avec succès.');
       setTimeout(() => this.saveSuccess.set(false), 3000);
     } else {
-      alert("Erreur lors de l'enregistrement des paramètres.");
+      this.notificationService.showToast('error', "Erreur lors de l'enregistrement des paramètres.");
     }
   }
 }

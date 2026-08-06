@@ -1,7 +1,8 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TeamMembersService, TeamMember } from '../../../core/services/team-members.service';
+import { NotificationService } from '../../../core/services/notification.service';
 
 @Component({
   selector: 'app-team-manager',
@@ -22,6 +23,8 @@ export class TeamManager implements OnInit {
   
   selectedFile = signal<File | null>(null);
   currentImageUrl = signal<string | null>(null);
+
+  private notificationService = inject(NotificationService);
 
   constructor(
     private teamService: TeamMembersService,
@@ -93,7 +96,7 @@ export class TeamManager implements OnInit {
       if (uploadedUrl) {
         imageUrl = uploadedUrl;
       } else {
-        alert("Erreur lors de l'upload de l'image");
+        this.notificationService.showToast('error', "Erreur lors de l'upload de l'image");
         this.isSaving.set(false);
         return;
       }
@@ -117,12 +120,14 @@ export class TeamManager implements OnInit {
   }
 
   async deleteMember(id: string) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce membre ?')) {
+    const confirmed = await this.notificationService.confirm('Êtes-vous sûr de vouloir supprimer ce membre ?');
+    if (confirmed) {
       const success = await this.teamService.deleteTeamMember(id);
       if (success) {
         this.loadMembers();
+        this.notificationService.showToast('success', "Membre supprimé avec succès");
       } else {
-        alert("Erreur lors de la suppression");
+        this.notificationService.showToast('error', "Erreur lors de la suppression");
       }
     }
   }

@@ -1,7 +1,8 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TestimonialsService, Testimonial } from '../../../core/services/testimonials.service';
+import { NotificationService } from '../../../core/services/notification.service';
 
 @Component({
   selector: 'app-testimonials-manager',
@@ -16,6 +17,7 @@ export class TestimonialsManager implements OnInit {
   currentId = signal<string | null>(null);
 
   form: FormGroup;
+  private notificationService = inject(NotificationService);
 
   constructor(
     private testimonialsService: TestimonialsService,
@@ -72,20 +74,23 @@ export class TestimonialsManager implements OnInit {
     }
     
     if (!result) {
-      alert("Erreur lors de l'enregistrement. Vérifiez la console.");
+      this.notificationService.showToast('error', "Erreur lors de l'enregistrement. Vérifiez la console.");
       this.isLoading.set(false);
       return;
     }
     
+    this.notificationService.showToast('success', "Témoignage enregistré avec succès.");
     this.cancelEdit();
     await this.loadTestimonials();
   }
 
   async deleteTestimonial(id: string) {
-    if (confirm('Voulez-vous vraiment supprimer ce témoignage ?')) {
+    const confirmed = await this.notificationService.confirm('Voulez-vous vraiment supprimer ce témoignage ?');
+    if (confirmed) {
       this.isLoading.set(true);
       await this.testimonialsService.deleteTestimonial(id);
       await this.loadTestimonials();
+      this.notificationService.showToast('success', "Témoignage supprimé avec succès.");
     }
   }
 }

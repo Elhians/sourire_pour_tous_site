@@ -1,12 +1,15 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArticlesService, Article } from '../../../core/services/articles.service';
+import { NotificationService } from '../../../core/services/notification.service';
+import { QuillModule } from 'ngx-quill';
 
 @Component({
   selector: 'app-articles-manager',
-  imports: [CommonModule, ReactiveFormsModule],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, QuillModule],
   templateUrl: './articles-manager.html',
   styles: ``
 })
@@ -23,6 +26,7 @@ export class ArticlesManager implements OnInit {
   lastUploadedMarkdown = signal<string | null>(null);
 
   articleForm: FormGroup;
+  private notificationService = inject(NotificationService);
 
   constructor(
     private articlesService: ArticlesService, 
@@ -108,7 +112,7 @@ export class ArticlesManager implements OnInit {
         const markdown = `![${file.name}](${url})`;
         this.lastUploadedMarkdown.set(markdown);
       } else {
-        alert("Erreur lors de l'upload de l'image.");
+        this.notificationService.showToast('error', "Erreur lors de l'upload de l'image.");
       }
       // Reset input
       input.value = '';
@@ -147,7 +151,7 @@ export class ArticlesManager implements OnInit {
     }
     
     if (!result) {
-      alert("Une erreur est survenue lors de l'enregistrement de l'article. Veuillez vérifier la console du navigateur.");
+      this.notificationService.showToast('error', "Une erreur est survenue lors de l'enregistrement de l'article.");
       this.isLoading.set(false);
       return;
     }
@@ -157,10 +161,12 @@ export class ArticlesManager implements OnInit {
   }
 
   async deleteArticle(id: string) {
-    if (confirm('Voulez-vous vraiment supprimer cet article ?')) {
+    const confirmed = await this.notificationService.confirm('Voulez-vous vraiment supprimer cet article ?');
+    if (confirmed) {
       this.isLoading.set(true);
       await this.articlesService.deleteArticle(id);
       await this.loadArticles();
+      this.notificationService.showToast('success', "Article supprimé avec succès.");
     }
   }
 }

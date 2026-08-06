@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-admin-layout',
@@ -10,6 +11,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class AdminLayout {
   isMobileMenuOpen = signal<boolean>(false);
+  notificationService = inject(NotificationService);
 
   toggleMobileMenu() {
     this.isMobileMenuOpen.update(v => !v);
