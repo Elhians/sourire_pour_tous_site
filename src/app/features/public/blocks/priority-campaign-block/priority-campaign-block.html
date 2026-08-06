@@ -4,7 +4,7 @@
     
     <!-- Image côté gauche -->
     <div class="md:w-5/12 h-64 md:h-auto relative">
-      <img [src]="campaign()!.cover_image || 'https://images.unsplash.com/photo-1593113565694-c6c71be397d4?q=80&w=800&auto=format&fit=crop'" 
+      <img loading="lazy" [src]="campaign()!.cover_image || 'https://images.unsplash.com/photo-1593113565694-c6c71be397d4?q=80&w=800&auto=format&fit=crop'" 
            alt="Image de campagne" 
            class="absolute inset-0 w-full h-full object-cover">
     </div>

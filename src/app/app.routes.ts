@@ -25,19 +25,23 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: Home
+        component: Home,
+        title: 'Accueil | Sourire Pour Tous'
       },
       {
         path: 'actualites',
-        component: NewsList
+        component: NewsList,
+        title: 'Actualités | Sourire Pour Tous'
       },
       {
         path: 'actualites/:slug',
-        component: NewsDetail
+        component: NewsDetail,
+        title: 'Actualités | Sourire Pour Tous'
       },
       {
         path: 'a-propos',
-        component: About
+        component: About,
+        title: 'À Propos | Sourire Pour Tous'
       },
       {
         path: 'actions',

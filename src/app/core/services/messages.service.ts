@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { environment } from '../../../environments/environment';
+import { Injectable, inject } from '@angular/core';
+import { SupabaseClient } from '@supabase/supabase-js';
+import { SupabaseService } from './supabase.service';
 
 export interface Message {
   id?: string;
@@ -18,8 +18,8 @@ export interface Message {
 export class MessagesService {
   private supabase: SupabaseClient;
 
-  constructor() {
-    this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
+  constructor(private supabaseService: SupabaseService) {
+    this.supabase = this.supabaseService.client;
   }
 
   // Envoyer un message (côté public)

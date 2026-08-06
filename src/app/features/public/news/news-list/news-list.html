@@ -26,7 +26,7 @@
             <a [routerLink]="['/actualites', article.slug]" class="group flex flex-col rounded-2xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-white border border-gray-100 cursor-pointer">
               <div class="flex-shrink-0 relative h-48 bg-gray-200">
                 @if (article.cover_image) {
-                  <img class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" [src]="article.cover_image" alt="">
+                  <img loading="lazy" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" [src]="article.cover_image" alt="">
                 } @else {
                   <div class="absolute inset-0 flex items-center justify-center bg-gray-100 group-hover:scale-105 transition-transform duration-700">
                     <span class="text-primary font-heading font-bold text-xl opacity-30">Sourire Pour Tous</span>

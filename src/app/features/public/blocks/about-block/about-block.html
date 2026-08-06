@@ -14,7 +14,10 @@
       
       <!-- Left Image Side -->
       <div class="relative rounded-[2rem] overflow-hidden shadow-2xl h-[450px] lg:h-[550px] mb-16 lg:mb-0">
-        <img src="/assets/images/volunteers_team.png" alt="Équipe de Bénévoles" class="object-cover w-full h-full">
+        <picture>
+          <source srcset="/assets/images/volunteers_team.webp" type="image/webp">
+          <img src="/assets/images/volunteers_team.png" alt="Équipe de Bénévoles" fetchpriority="high" width="800" height="550" class="object-cover w-full h-full">
+        </picture>
         <!-- The Green Box -->
         <div class="absolute bottom-6 lg:bottom-10 left-6 right-6 lg:-right-6 lg:left-12 bg-[#2D7A46] text-white p-6 rounded-2xl text-center shadow-lg transform transition-transform hover:-translate-y-2">
           <p class="font-bold text-lg md:text-xl">
@@ -92,8 +95,8 @@
       </div>
       <div class="relative mt-16 px-4 sm:px-12 group">
         <!-- Prev Button -->
-        <button (click)="scrollLeft(slider)" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white w-10 h-10 rounded-full shadow-md text-gray-500 hover:text-primary hover:scale-110 transition-all z-10 flex items-center justify-center border border-gray-100 hidden sm:flex opacity-0 group-hover:opacity-100">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        <button (click)="scrollLeft(slider)" aria-label="Membre précédent" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white w-10 h-10 rounded-full shadow-md text-gray-500 hover:text-primary hover:scale-110 transition-all z-10 flex items-center justify-center border border-gray-100 hidden sm:flex opacity-0 group-hover:opacity-100">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
         </button>
 
         <!-- Slider Container -->
@@ -102,7 +105,7 @@
             <div class="min-w-full md:min-w-[calc(50%-1rem)] lg:min-w-[calc(33.333%-1.33rem)] snap-center sm:snap-start space-y-4 text-center px-2">
               <div class="mx-auto h-40 w-40 rounded-full bg-white border-4 border-gray-100 shadow-md overflow-hidden flex items-center justify-center transition-transform hover:scale-105 duration-300">
                 @if (member.image_url) {
-                  <img [src]="member.image_url" [alt]="'Photo de ' + member.name" class="w-full h-full object-cover">
+                  <img loading="lazy" [src]="member.image_url" [alt]="'Photo de ' + member.name" class="w-full h-full object-cover">
                 } @else {
                   <svg class="h-20 w-20 text-gray-300" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
                 }
@@ -121,8 +124,8 @@
         </div>
 
         <!-- Next Button -->
-        <button (click)="scrollRight(slider)" class="absolute right-0 top-1/2 -translate-y-1/2 bg-white w-10 h-10 rounded-full shadow-md text-gray-500 hover:text-primary hover:scale-110 transition-all z-10 flex items-center justify-center border border-gray-100 hidden sm:flex opacity-0 group-hover:opacity-100">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        <button (click)="scrollRight(slider)" aria-label="Membre suivant" class="absolute right-0 top-1/2 -translate-y-1/2 bg-white w-10 h-10 rounded-full shadow-md text-gray-500 hover:text-primary hover:scale-110 transition-all z-10 flex items-center justify-center border border-gray-100 hidden sm:flex opacity-0 group-hover:opacity-100">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
         </button>
       </div>
       
