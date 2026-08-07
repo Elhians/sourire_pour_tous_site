@@ -45,10 +45,15 @@
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Image de couverture (Optionnelle)</label>
             <div class="mt-1 flex items-center space-x-4">
-              <input type="file" accept="image/*" (change)="onCoverFileSelected($event)" class="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-primary hover:file:bg-red-100 cursor-pointer">
-              @if (currentCoverUrl() && !selectedCoverFile()) {
-                <img [src]="currentCoverUrl()" alt="Cover preview" class="h-12 w-12 object-cover rounded shadow-sm">
-                <span class="text-xs text-gray-500">Image actuelle</span>
+              <input type="file" id="coverImageInput" accept="image/*" (change)="onCoverFileSelected($event)" class="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-primary hover:file:bg-red-100 cursor-pointer">
+              @if (currentCoverUrl() || selectedCoverFile()) {
+                <div class="flex items-center space-x-2">
+                  <img [src]="selectedCoverFile() ? getObjectURL(selectedCoverFile()!) : currentCoverUrl()" alt="Cover preview" class="h-12 w-12 object-cover rounded shadow-sm">
+                  <div class="flex flex-col">
+                    <span class="text-xs text-gray-500">{{ selectedCoverFile() ? 'Nouvelle image' : 'Image actuelle' }}</span>
+                    <button type="button" (click)="removeCoverImage()" class="text-xs font-medium text-red-600 hover:text-red-800 text-left">Supprimer</button>
+                  </div>
+                </div>
               }
             </div>
           </div>

@@ -99,6 +99,17 @@ export class ArticlesManager implements OnInit {
     }
   }
 
+  removeCoverImage() {
+    this.selectedCoverFile.set(null);
+    this.currentCoverUrl.set(null);
+    const fileInput = document.getElementById('coverImageInput') as HTMLInputElement;
+    if (fileInput) fileInput.value = '';
+  }
+
+  getObjectURL(file: File): string {
+    return URL.createObjectURL(file);
+  }
+
   async onContentImageSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -139,8 +150,8 @@ export class ArticlesManager implements OnInit {
       if (url) {
         formValue.cover_image = url;
       }
-    } else if (this.currentCoverUrl()) {
-      formValue.cover_image = this.currentCoverUrl();
+    } else {
+      formValue.cover_image = this.currentCoverUrl(); // Will be null if user removed the image
     }
     
     let result;
